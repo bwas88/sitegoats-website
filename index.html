@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiteGoats | The GOAT of Web Design</title>
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green: #3EE07A;
+            --green-dim: #2aba62;
+            --green-glow: rgba(62,224,122,0.10);
+            --green-border: rgba(62,224,122,0.25);
+            --bg: #080808;
+            --bg-2: #101010;
+            --bg-3: #1A1A1A;
+            --bg-card: #131313;
+            --border: rgba(255,255,255,0.07);
+            --text: #EFEFEF;
+            --text-muted: #888;
+            --text-dim: #444;
+            --radius: 12px;
+            --radius-lg: 20px;
+            --t: 0.3s ease;
+        }
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; line-height:1.6; }
+
+        /* UTILS */
+        .container { max-width:1140px; margin:0 auto; padding:0 24px; }
+        .section { padding:100px 0; }
+        .section-label {
+            display:inline-flex; align-items:center; gap:8px;
+            font-size:12px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase;
+            color:var(--green); margin-bottom:16px;
+        }
+        .section-label::before { content:''; width:18px; height:2px; background:var(--green); }
+        .section-title {
+            font-family:'Space Grotesk',sans-serif;
+            font-size:clamp(2rem,4vw,3rem); font-weight:700; line-height:1.15; margin-bottom:18px;
+        }
+        .section-title .g {
+            background:linear-gradient(135deg,var(--green) 0%,#a8f5c0 100%);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+        }
+        .section-sub { font-size:1rem; color:var(--text-muted); max-width:540px; line-height:1.75; }
+        .btn {
+            display:inline-flex; align-items:center; gap:8px;
+            padding:14px 28px; border-radius:8px; font-size:15px; font-weight:600;
+            text-decoration:none; cursor:pointer; border:none; transition:all var(--t); white-space:nowrap;
+        }
+        .btn-primary { background:var(--green); color:#000; box-shadow:0 4px 16px rgba(62,224,122,.2), 0 1px 4px rgba(0,0,0,.3); }
+        .btn-primary:hover { background:#5aeea0; transform:translateY(-2px); box-shadow:0 8px 32px rgba(62,224,122,.4), 0 2px 8px rgba(0,0,0,.3); }
+        .btn-outline { background:transparent; color:var(--text); border:1px solid var(--border); }
+        .btn-outline:hover { border-color:var(--green-border); color:var(--green); transform:translateY(-2px); }
+
+        /* ANIMATIONS */
+        @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes pulseGreen { 0%,100%{box-shadow:0 0 0 0 rgba(62,224,122,.4)} 50%{box-shadow:0 0 0 10px rgba(62,224,122,0)} }
+        @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+        @keyframes gridPulse { 0%,100%{opacity:.04} 50%{opacity:.08} }
+        @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+        @keyframes spin { to{transform:rotate(360deg)} }
+
+        .reveal { opacity:0; transform:translateY(36px); transition:opacity .7s ease,transform .7s ease; }
+        .reveal.vis { opacity:1; transform:translateY(0); }
+        .d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s} .d4{transition-delay:.4s}
+
+        /* NAV */
+        nav {
+            position:fixed; top:0; left:0; right:0; z-index:1000;
+            padding:20px 0; transition:all .4s ease;
+        }
+        nav.scrolled {
+            background:rgba(8,8,8,.93); backdrop-filter:blur(20px);
+            border-bottom:1px solid var(--border); padding:13px 0;
+            box-shadow:0 4px 32px rgba(0,0,0,.5), 0 1px 0 rgba(62,224,122,.06);
+        }
+        .nav-inner { display:flex; align-items:center; justify-content:space-between; }
+        .logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+        .logo-wordmark {
+            font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700;
+            color:var(--text); letter-spacing:-.02em;
+        }
+        .logo-wordmark span { color:var(--green); }
+        .nav-links { display:flex; align-items:center; gap:36px; list-style:none; }
+        .nav-links a { text-decoration:none; color:var(--text-muted); font-size:14px; font-weight:500; transition:color var(--t); }
+        .nav-links a:hover { color:var(--text); }
+        .nav-right { display:flex; align-items:center; gap:16px; }
+        .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; background:none; border:none; }
+        .hamburger span { width:22px; height:2px; background:var(--text); display:block; transition:all .3s; }
+
+        /* MOBILE MENU */
+        .mob-menu {
+            display:none; position:fixed; inset:0; background:var(--bg); z-index:999;
+            flex-direction:column; align-items:center; justify-content:center; gap:36px;
+        }
+        .mob-menu.open { display:flex; }
+        .mob-menu a {
+            font-family:'Space Grotesk',sans-serif; font-size:2rem; font-weight:700;
+            color:var(--text); text-decoration:none; transition:color var(--t);
+        }
+        .mob-menu a:hover { color:var(--green); }
+        .mob-close { position:absolute; top:24px; right:24px; background:none; border:none; color:var(--text); font-size:28px; cursor:pointer; line-height:1; }
+
+        /* HERO */
+        #hero { min-height:100vh; display:flex; align-items:center; position:relative; overflow:hidden; padding-top:90px; }
+        .hero-bg { position:absolute; inset:0; z-index:0; }
+        .hero-grid {
+            position:absolute; inset:0;
+            background-image:linear-gradient(rgba(62,224,122,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(62,224,122,.05) 1px,transparent 1px);
+            background-size:60px 60px; animation:gridPulse 5s ease-in-out infinite;
+        }
+        .hero-glow {
+            position:absolute; top:35%; left:50%; transform:translate(-50%,-50%);
+            width:700px; height:700px;
+            background:radial-gradient(circle,rgba(62,224,122,.07) 0%,transparent 70%);
+            pointer-events:none;
+        }
+        .orb { position:absolute; border-radius:50%; filter:blur(70px); opacity:.12; }
+        .orb-1 { width:420px; height:420px; background:var(--green); top:-120px; right:-80px; animation:floatY 9s ease-in-out infinite; }
+        .orb-2 { width:260px; height:260px; background:#2563eb; bottom:-60px; left:8%; animation:floatY 7s ease-in-out infinite reverse; }
+        .hero-content { position:relative; z-index:1; max-width:800px; }
+        .hero-badge {
+            display:inline-flex; align-items:center; gap:8px;
+            padding:6px 16px; border-radius:100px;
+            border:1px solid var(--green-border); background:var(--green-glow);
+            font-size:13px; font-weight:500; color:var(--green); margin-bottom:28px;
+            animation:fadeUp .6s ease both;
+        }
+        .badge-dot { width:7px; height:7px; border-radius:50%; background:var(--green); animation:pulseGreen 2s ease infinite; }
+        .hero-title {
+            font-family:'Space Grotesk',sans-serif;
+            font-size:clamp(2.8rem,6vw,5rem); font-weight:700; line-height:1.08;
+            letter-spacing:-.03em; margin-bottom:24px;
+            animation:fadeUp .7s .1s ease both;
+        }
+        .hero-title .g {
+            background:linear-gradient(135deg,var(--green) 0%,#a8f5c0 100%);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+        }
+        .hero-sub { font-size:1.1rem; color:var(--text-muted); max-width:540px; line-height:1.8; margin-bottom:36px; animation:fadeUp .7s .2s ease both; }
+        .hero-actions { display:flex; flex-wrap:wrap; gap:14px; margin-bottom:60px; animation:fadeUp .7s .3s ease both; }
+        .hero-stats {
+            display:flex; flex-wrap:wrap; gap:36px;
+            padding-top:40px; border-top:1px solid var(--border);
+            animation:fadeUp .7s .4s ease both;
+        }
+        .hero-stat { display:flex; flex-direction:column; }
+        .stat-row { display:flex; align-items:baseline; gap:2px; }
+        .stat-num {
+            font-family:'Space Grotesk',sans-serif; font-size:2.2rem; font-weight:700;
+            color:var(--green); line-height:1;
+        }
+        .stat-suf { font-family:'Space Grotesk',sans-serif; font-size:2.2rem; font-weight:700; color:var(--green); line-height:1; }
+        .stat-label { font-size:13px; color:var(--text-muted); margin-top:4px; }
+
+        /* MARQUEE */
+        .marquee-wrap { padding:22px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); overflow:hidden; background:var(--bg-2); }
+        .marquee-track { display:flex; gap:52px; animation:marquee 22s linear infinite; width:max-content; }
+        .marquee-item { display:flex; align-items:center; gap:10px; color:var(--text-dim); font-size:13px; font-weight:500; white-space:nowrap; }
+        .marquee-dot { width:5px; height:5px; border-radius:50%; background:var(--green); flex-shrink:0; }
+
+        /* WHY WEBSITE */
+        #why { background:var(--bg-2); }
+        .why-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; margin-top:52px; }
+        .why-card {
+            background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg);
+            padding:30px; transition:all .4s ease; position:relative; overflow:hidden;
+            box-shadow:0 2px 12px rgba(0,0,0,.35), 0 1px 3px rgba(0,0,0,.25);
+        }
+        .why-card::after {
+            content:''; position:absolute; top:0; left:0; right:0; height:2px;
+            background:linear-gradient(90deg,var(--green),transparent); opacity:0; transition:opacity .4s;
+        }
+        .why-card:hover { border-color:var(--green-border); transform:translateY(-6px); box-shadow:0 24px 60px rgba(0,0,0,.55), 0 8px 24px rgba(0,0,0,.3), 0 0 0 1px rgba(62,224,122,.06), 0 16px 40px rgba(62,224,122,.06); }
+        .why-card:hover::after { opacity:1; }
+        .why-icon {
+            width:50px; height:50px; border-radius:12px;
+            background:var(--green-glow); border:1px solid var(--green-border);
+            display:flex; align-items:center; justify-content:center;
+            margin-bottom:22px;
+        }
+        .why-card h3 { font-family:'Space Grotesk',sans-serif; font-size:1.05rem; font-weight:600; margin-bottom:10px; }
+        .why-card p { font-size:.875rem; color:var(--text-muted); line-height:1.72; }
+
+        /* SERVICES */
+        #services { background:var(--bg); }
+        .services-head { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:end; margin-bottom:52px; }
+        .services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+        .svc-card {
+            background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg);
+            padding:28px; transition:all .4s ease;
+            box-shadow:0 2px 12px rgba(0,0,0,.35), 0 1px 3px rgba(0,0,0,.2);
+        }
+        .svc-card:hover { border-color:var(--green-border); background:var(--bg-3); transform:translateY(-4px); box-shadow:0 20px 50px rgba(0,0,0,.5), 0 6px 20px rgba(0,0,0,.3), 0 12px 32px rgba(62,224,122,.05); }
+        .svc-num { font-size:11px; color:var(--green); font-weight:700; letter-spacing:.12em; margin-bottom:20px; }
+        .svc-icon { display:flex; align-items:center; margin-bottom:14px; }
+        .svc-card h3 { font-family:'Space Grotesk',sans-serif; font-size:1.05rem; font-weight:600; margin-bottom:10px; }
+        .svc-card p { font-size:.865rem; color:var(--text-muted); line-height:1.68; }
+
+        /* WHY US */
+        #why-us { background:var(--bg-2); }
+        .why-us-layout { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+        .feature-list { display:flex; flex-direction:column; gap:18px; margin-top:36px; }
+        .feature-item { display:flex; align-items:flex-start; gap:14px; }
+        .feature-check {
+            width:22px; height:22px; border-radius:50%; flex-shrink:0; margin-top:2px;
+            background:var(--green-glow); border:1px solid var(--green-border);
+            display:flex; align-items:center; justify-content:center; color:var(--green); font-size:11px; font-weight:700;
+        }
+        .feature-text strong { display:block; font-size:14px; font-weight:600; margin-bottom:2px; }
+        .feature-text span { font-size:13px; color:var(--text-muted); line-height:1.6; }
+        .vis-card {
+            background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg);
+            padding:32px; position:relative;
+            box-shadow:0 8px 32px rgba(0,0,0,.4), 0 2px 8px rgba(0,0,0,.3), 0 24px 48px rgba(62,224,122,.04);
+        }
+        .vis-card::before {
+            content:''; position:absolute; inset:-1px; border-radius:var(--radius-lg);
+            background:linear-gradient(135deg,rgba(62,224,122,.2),transparent 55%); z-index:-1;
+        }
+        .stars { color:#f59e0b; font-size:16px; letter-spacing:3px; margin-bottom:16px; }
+        .quote { font-size:.95rem; color:var(--text-muted); line-height:1.78; margin-bottom:20px; font-style:italic; }
+        .author { display:flex; align-items:center; gap:12px; }
+        .avatar {
+            width:42px; height:42px; border-radius:50%; flex-shrink:0;
+            background:linear-gradient(135deg,var(--green),#22c55e);
+            display:flex; align-items:center; justify-content:center;
+            font-weight:700; font-size:15px; color:#000;
+        }
+        .author-info strong { display:block; font-size:14px; font-weight:600; }
+        .author-info span { font-size:12px; color:var(--text-muted); }
+        .float-badge {
+            position:absolute; bottom:-18px; right:-18px;
+            background:var(--bg-card); border:1px solid var(--green-border); border-radius:12px;
+            padding:12px 16px; display:flex; align-items:center; gap:10px;
+            box-shadow:0 12px 40px rgba(0,0,0,.5); animation:floatY 5s ease-in-out infinite;
+        }
+        .badge-icon { width:32px; height:32px; border-radius:8px; background:var(--green-glow); display:flex; align-items:center; justify-content:center; font-size:15px; }
+
+        .inc-item { display:flex; align-items:flex-start; gap:12px; }
+        .inc-check {
+            width:22px; height:22px; border-radius:50%; flex-shrink:0;
+            background:var(--green-glow); border:1px solid var(--green-border);
+            display:flex; align-items:center; justify-content:center; margin-top:2px;
+        }
+
+        /* PROCESS */
+        #process { background:var(--bg); }
+        .process-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-top:52px; position:relative; }
+        .process-grid::before {
+            content:''; position:absolute; top:39px;
+            left:calc(12.5% + 16px); right:calc(12.5% + 16px);
+            height:1px; background:linear-gradient(90deg,var(--green),rgba(62,224,122,.15),transparent);
+        }
+        .p-step { text-align:center; }
+        .p-num {
+            width:78px; height:78px; border-radius:50%; margin:0 auto 22px;
+            background:var(--bg-card); border:1px solid var(--border);
+            display:flex; align-items:center; justify-content:center;
+            font-family:'Space Grotesk',sans-serif; font-size:1.4rem; font-weight:700; color:var(--green);
+            transition:all .4s;
+        }
+        .p-step:hover .p-num { border-color:var(--green); box-shadow:0 0 32px rgba(62,224,122,.2); background:var(--green-glow); }
+        .p-step h3 { font-family:'Space Grotesk',sans-serif; font-size:.95rem; font-weight:600; margin-bottom:8px; }
+        .p-step p { font-size:.855rem; color:var(--text-muted); line-height:1.65; }
+
+        /* TESTIMONIALS */
+        #testimonials { background:var(--bg-2); }
+        .test-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:52px; }
+        .test-card {
+            background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg);
+            padding:30px; transition:all .4s ease;
+        }
+        .test-card:hover { border-color:var(--green-border); transform:translateY(-4px); }
+        .test-stars { color:#f59e0b; font-size:13px; letter-spacing:2px; margin-bottom:18px; }
+        .test-text { font-size:.9rem; color:var(--text-muted); line-height:1.78; margin-bottom:22px; }
+        .test-author { display:flex; align-items:center; gap:12px; }
+        .t-av { width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; color:#000; flex-shrink:0; }
+        .t-info strong { display:block; font-size:13px; font-weight:600; }
+        .t-info span { font-size:11px; color:var(--text-muted); }
+
+        /* GUARANTEE */
+        .guarantee-box {
+            background:linear-gradient(135deg,rgba(62,224,122,.06),rgba(62,224,122,.01));
+            border:1px solid var(--green-border); border-radius:24px;
+            padding:56px; display:grid;
+            grid-template-columns:auto 1fr auto; gap:48px; align-items:center;
+            box-shadow:0 8px 40px rgba(0,0,0,.4), 0 2px 8px rgba(0,0,0,.3), 0 0 80px rgba(62,224,122,.04);
+        }
+        .guarantee-icon {
+            width:80px; height:80px; border-radius:20px; flex-shrink:0;
+            background:var(--green-glow); border:1px solid var(--green-border);
+            display:flex; align-items:center; justify-content:center;
+        }
+        .guarantee-badges { display:flex; flex-direction:column; gap:12px; }
+        .g-badge {
+            display:flex; align-items:center; gap:8px;
+            font-size:13px; font-weight:500; color:var(--text-muted);
+            white-space:nowrap;
+        }
+
+        /* FAQ */
+        .faq-list { display:flex; flex-direction:column; gap:12px; max-width:760px; margin:0 auto; }
+        .faq-item {
+            background:var(--bg-card); border:1px solid var(--border);
+            border-radius:var(--radius); overflow:hidden; transition:all .3s;
+            box-shadow:0 2px 10px rgba(0,0,0,.3);
+        }
+        .faq-item:hover { border-color:var(--green-border); box-shadow:0 6px 24px rgba(0,0,0,.4), 0 2px 8px rgba(62,224,122,.05); }
+        .faq-q {
+            width:100%; display:flex; align-items:center; justify-content:space-between;
+            gap:16px; padding:20px 24px; background:none; border:none; cursor:pointer;
+            color:var(--text); font-size:15px; font-weight:600; text-align:left;
+            font-family:'Inter',sans-serif;
+        }
+        .faq-arrow { flex-shrink:0; transition:transform .3s ease; }
+        .faq-item.open .faq-arrow { transform:rotate(180deg); }
+        .faq-item.open { border-color:var(--green-border); }
+        .faq-a {
+            max-height:0; overflow:hidden; padding:0 24px;
+            font-size:.9rem; color:var(--text-muted); line-height:1.75;
+            transition:max-height .4s ease, padding .4s ease;
+        }
+        .faq-item.open .faq-a { max-height:200px; padding:0 24px 20px; }
+
+        @media(max-width:768px){
+            .guarantee-box { grid-template-columns:1fr; gap:28px; padding:36px 28px; }
+            .guarantee-icon { width:60px; height:60px; }
+        }
+
+        /* CTA */
+        #cta { background:var(--bg); padding:100px 0; }
+        .cta-box {
+            background:linear-gradient(135deg,rgba(62,224,122,.06),rgba(62,224,122,.01));
+            border:1px solid var(--green-border); border-radius:24px;
+            padding:80px 60px; text-align:center; position:relative; overflow:hidden;
+        }
+        .cta-box::before {
+            content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+            width:500px; height:500px; background:radial-gradient(circle,rgba(62,224,122,.06),transparent 70%); pointer-events:none;
+        }
+        .cta-chip {
+            display:inline-flex; align-items:center; gap:7px; padding:5px 14px;
+            border-radius:100px; border:1px solid var(--green-border); background:var(--green-glow);
+            font-size:11px; font-weight:700; color:var(--green); letter-spacing:.1em; text-transform:uppercase; margin-bottom:22px;
+        }
+        .cta-box h2 { font-family:'Space Grotesk',sans-serif; font-size:clamp(2rem,4vw,3.2rem); font-weight:700; line-height:1.15; margin-bottom:18px; }
+        .cta-box p { font-size:1rem; color:var(--text-muted); max-width:480px; margin:0 auto 36px; line-height:1.75; }
+        .cta-btns { display:flex; justify-content:center; flex-wrap:wrap; gap:14px; }
+        .cta-note { margin-top:20px; font-size:12px; color:var(--text-dim); }
+
+        /* FOOTER */
+        footer { background:var(--bg-2); border-top:1px solid var(--border); padding:60px 0 28px; }
+        .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; margin-bottom:44px; }
+        .footer-brand p { font-size:13px; color:var(--text-muted); line-height:1.75; margin-top:14px; max-width:260px; }
+        .footer-col h4 { font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; margin-bottom:18px; letter-spacing:.03em; }
+        .footer-links { list-style:none; display:flex; flex-direction:column; gap:10px; }
+        .footer-links a { text-decoration:none; font-size:13px; color:var(--text-muted); transition:color var(--t); }
+        .footer-links a:hover { color:var(--green); }
+        .footer-bottom { padding-top:24px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; }
+        .footer-bottom p { font-size:12px; color:var(--text-dim); }
+        .socials { display:flex; gap:10px; }
+        .soc {
+            width:34px; height:34px; border-radius:8px; background:var(--bg-3); border:1px solid var(--border);
+            display:flex; align-items:center; justify-content:center; text-decoration:none;
+            color:var(--text-muted); font-size:13px; transition:all var(--t);
+        }
+        .soc:hover { border-color:var(--green-border); color:var(--green); }
+
+        /* RESPONSIVE */
+        /* TABLET / IPAD (1024px) */
+        @media(max-width:1024px){
+            .services-head { grid-template-columns:1fr; }
+            .services-grid { grid-template-columns:repeat(2,1fr); }
+            .why-us-layout { grid-template-columns:1fr; gap:48px; }
+            .process-grid { grid-template-columns:repeat(2,1fr); }
+            .process-grid::before { display:none; }
+            .footer-grid { grid-template-columns:1fr 1fr; }
+            .guarantee-box { grid-template-columns:auto 1fr; gap:32px; padding:40px; }
+            .guarantee-badges { grid-column:1/-1; flex-direction:row; flex-wrap:wrap; gap:16px; }
+            .float-badge { position:static; margin-top:24px; animation:none; }
+        }
+
+        /* MOBILE (768px) */
+        @media(max-width:768px){
+            .section { padding:64px 0; }
+            .nav-links { display:none; }
+            .nav-right .btn-outline { display:none; }
+            .hamburger { display:flex; }
+            .services-grid, .test-grid { grid-template-columns:1fr; }
+            .cta-box { padding:40px 20px; }
+            .footer-grid { grid-template-columns:1fr; }
+            .hero-stats { gap:20px; flex-wrap:wrap; }
+            .stat-num, .stat-suf { font-size:1.8rem; }
+            .hero-actions { flex-direction:column; }
+            .hero-actions .btn { width:100%; justify-content:center; }
+            .guarantee-box { grid-template-columns:1fr; gap:24px; padding:32px 24px; }
+            .guarantee-badges { flex-direction:column; }
+            .faq-q { font-size:14px; padding:16px 18px; }
+            .section-title { font-size:1.8rem; }
+            .cta-btns { flex-direction:column; align-items:center; }
+            .cta-btns .btn { width:100%; justify-content:center; }
+        }
+
+        /* SMALL MOBILE (520px) */
+        @media(max-width:520px){
+            .process-grid, .why-grid { grid-template-columns:1fr; }
+            .hero-title { font-size:2.2rem; }
+            .hero-sub { font-size:1rem; }
+            .hero-stats { gap:16px; }
+            .hero-stat { flex:1; min-width:calc(50% - 8px); }
+            .logo-wordmark { font-size:16px; }
+            .footer-bottom { flex-direction:column; align-items:flex-start; }
+            .why-card, .svc-card { padding:24px; }
+            .guarantee-box { padding:24px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+    <button class="mob-close" id="mobClose">✕</button>
+    <a href="#why" onclick="closeMob()">Why a Website</a>
+    <a href="#services" onclick="closeMob()">Services</a>
+    <a href="#why-us" onclick="closeMob()">Why Us</a>
+    <a href="#process" onclick="closeMob()">Process</a>
+    <a href="#cta" class="btn btn-primary" onclick="closeMob()" style="font-size:1.1rem;padding:14px 32px;">Book a Call →</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+    <div class="container">
+        <div class="nav-inner">
+            <a href="#" class="logo">
+                <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="34" height="34" rx="8" fill="#3EE07A" fill-opacity="0.12"/>
+                    <!-- Browser frame -->
+                    <rect x="4" y="7" width="26" height="20" rx="2.5" stroke="#3EE07A" stroke-width="1.8" fill="none"/>
+                    <!-- Top bar -->
+                    <line x1="4" y1="12.5" x2="30" y2="12.5" stroke="#3EE07A" stroke-width="1.5"/>
+                    <!-- Traffic lights -->
+                    <circle cx="8" cy="10" r="1.2" fill="#3EE07A"/>
+                    <circle cx="11.8" cy="10" r="1.2" fill="#3EE07A" fill-opacity="0.5"/>
+                    <circle cx="15.6" cy="10" r="1.2" fill="#3EE07A" fill-opacity="0.25"/>
+                    <!-- Wireframe content -->
+                    <rect x="7" y="15.5" width="8" height="8" rx="1.2" fill="#3EE07A" fill-opacity="0.35"/>
+                    <rect x="17.5" y="15.5" width="8.5" height="2" rx="0.8" fill="#3EE07A" fill-opacity="0.8"/>
+                    <rect x="17.5" y="19" width="6" height="2" rx="0.8" fill="#3EE07A" fill-opacity="0.55"/>
+                    <rect x="17.5" y="22.5" width="7.5" height="1.5" rx="0.8" fill="#3EE07A" fill-opacity="0.3"/>
+                </svg>
+                <span class="logo-wordmark">Site<span>Goats</span></span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#why">Why a Website</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#why-us">Why Us</a></li>
+                <li><a href="#process">Process</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="#cta" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Book a Call →</a>
+                <button class="hamburger" id="hamburger" aria-label="Open menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+    <div class="hero-bg">
+        <div class="hero-grid"></div>
+        <div class="hero-glow"></div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                Professional Web Design Agency
+            </div>
+            <h1 class="hero-title">
+                We Build Websites<br>That <span class="g">Drive Real Results</span>
+            </h1>
+            <p class="hero-sub">
+                Your business deserves more than a digital brochure. We craft high-performance websites that attract customers, build trust, and grow your revenue,around the clock.
+            </p>
+            <div class="hero-actions">
+                <a href="#cta" class="btn btn-primary" style="font-size:16px;padding:16px 32px;">Book a Free Call →</a>
+                <a href="#why" class="btn btn-outline" style="font-size:16px;padding:16px 32px;">See Why It Matters</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="stat-row"><span class="stat-suf">No</span></div>
+                    <span class="stat-label">Templates Ever</span>
+                </div>
+                <div class="hero-stat">
+                    <div class="stat-row"><span class="stat-suf">SEO</span></div>
+                    <span class="stat-label">Ready Always</span>
+                </div>
+                <div class="hero-stat">
+                    <div class="stat-row"><span class="stat-num" data-target="100">0</span><span class="stat-suf">%</span></div>
+                    <span class="stat-label">Custom Built</span>
+                </div>
+                <div class="hero-stat">
+                    <div class="stat-row"><span class="stat-num" data-target="24">0</span><span class="stat-suf">hr</span></div>
+                    <span class="stat-label">Response Time</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+    <div class="marquee-track" aria-hidden="true">
+        <div class="marquee-item"><span class="marquee-dot"></span>Web Design</div>
+        <div class="marquee-item"><span class="marquee-dot"></span>Logo Design</div>
+        <div class="marquee-item"><span class="marquee-dot"></span>SEO Optimization</div>
+        <div class="marquee-item"><span class="marquee-dot"></span>E-Commerce Stores</div>
+        <div class="marquee-item"><span class="marquee-dot"></span>Landing Pages</div>
+        <div class="marquee-item"><span class="marquee-dot"></span>Mobile-First Design</div>
+        <div class="marquee-item"><span class="marquee-dot"></span>Website Redesigns</div>
+        <div class="marquee-item"><span class="marquee-dot"></span>Ongoing Support</div>
+        <div class="marquee-item"><span class="marquee-dot"></span>Business Websites</div>
+        <div class="marquee-item"><span class="marquee-dot"></span>Web Design</div>
+        <div class="marquee-item"><span class="marquee-dot"></span>Logo Design</div>
+        <div class="marquee-item"><span class="marquee-dot"></span>SEO Optimization</div>
+        <div class="marquee-item"><span class="marquee-dot"></span>E-Commerce Stores</div>
+        <div class="marquee-item"><span class="marquee-dot"></span>Landing Pages</div>
+        <div class="marquee-item"><span class="marquee-dot"></span>Mobile-First Design</div>
+        <div class="marquee-item"><span class="marquee-dot"></span>Website Redesigns</div>
+        <div class="marquee-item"><span class="marquee-dot"></span>Ongoing Support</div>
+        <div class="marquee-item"><span class="marquee-dot"></span>Business Websites</div>
+    </div>
+</div>
+
+<!-- WHY A WEBSITE -->
+<section class="section" id="why">
+    <div class="container">
+        <div class="section-label">Why It Matters</div>
+        <h2 class="section-title reveal">Your Business Needs a<br><span class="g">Professional Website</span></h2>
+        <p class="section-sub reveal d1">In 2024, your website is your #1 salesperson,working 24/7 to bring you customers. Here's why it's non-negotiable.</p>
+        <div class="why-grid">
+            <div class="why-card reveal d1">
+                <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+                <h3>97% of Customers Search Online First</h3>
+                <p>Before calling or visiting, people Google you. Without a website, you're invisible,and they'll find your competition instead.</p>
+            </div>
+            <div class="why-card reveal d2">
+                <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+                <h3>Build Trust & Credibility Instantly</h3>
+                <p>75% of consumers judge a business's credibility by its website. A polished site turns skeptics into buyers before you say a word.</p>
+            </div>
+            <div class="why-card reveal d3">
+                <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                <h3>Your Business Works 24/7</h3>
+                <p>Your website never sleeps. Customers can learn about you, book appointments, and purchase at 2am,without you lifting a finger.</p>
+            </div>
+            <div class="why-card reveal d4">
+                <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+                <h3>Stay Ahead of Competitors</h3>
+                <p>If your competitor has a great site and you don't, you've already lost the sale. A better website is the fastest way to win market share.</p>
+            </div>
+            <div class="why-card reveal d1">
+                <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3L8 9l4 13 4-13-3-6"/><line x1="2" y1="9" x2="22" y2="9"/></svg></div>
+                <h3>Best ROI of Any Marketing Channel</h3>
+                <p>A quality website reaches thousands of potential customers continuously,for a fraction of what you'd spend on ads or traditional marketing.</p>
+            </div>
+            <div class="why-card reveal d2">
+                <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+                <h3>Attract Your Ideal Customers</h3>
+                <p>With SEO built in from day one, your site pulls in people actively searching for exactly what you offer,ready to buy, not just browse.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+    <div class="container">
+        <div class="services-head">
+            <div>
+                <div class="section-label">What We Do</div>
+                <h2 class="section-title reveal">Everything You Need<br>to <span class="g">Win Online</span></h2>
+            </div>
+            <div>
+                <p class="section-sub reveal d1">From concept to launch and beyond,we handle it all so you can stay focused on running your business.</p>
+            </div>
+        </div>
+        <div class="services-grid">
+            <div class="svc-card reveal d1">
+                <div class="svc-num">01</div>
+                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div>
+                <h3>Custom Web Design</h3>
+                <p>Stunning, unique designs built for your brand,not off a template shelf. Every pixel crafted to make you stand out.</p>
+            </div>
+            <div class="svc-card reveal d2">
+                <div class="svc-num">02</div>
+                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+                <h3>Web Development</h3>
+                <p>Clean, fast, reliable code. We build sites that load in under 2 seconds and work flawlessly on every device.</p>
+            </div>
+            <div class="svc-card reveal d3">
+                <div class="svc-num">03</div>
+                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><polyline points="8 13 10 11 12 13 14 9"/></svg></div>
+                <h3>SEO Optimization</h3>
+                <p>Built to rank from day one. Every site we make is optimized to help you get found on Google and drive organic traffic.</p>
+            </div>
+            <div class="svc-card reveal d1">
+                <div class="svc-num">04</div>
+                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+                <h3>E-Commerce Stores</h3>
+                <p>Sell online with a smooth, conversion-focused store. Payment integrations, product pages, and checkout,done right.</p>
+            </div>
+            <div class="svc-card reveal d2">
+                <div class="svc-num">05</div>
+                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+                <h3>Landing Pages</h3>
+                <p>High-converting pages with one goal,book calls, capture leads, or drive sales. Designed to perform, not just look good.</p>
+            </div>
+            <div class="svc-card reveal d3">
+                <div class="svc-num">06</div>
+                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+                <h3>Ongoing Maintenance</h3>
+                <p>We don't build and disappear. Continuous updates, monitoring, and support to keep your site fast, secure, and current.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="section" id="why-us">
+    <div class="container">
+        <div class="why-us-layout">
+            <div>
+                <div class="section-label">Why Choose Us</div>
+                <h2 class="section-title reveal">We Don't Just Build Sites.<br>We Build <span class="g">Growth</span></h2>
+                <p class="section-sub reveal d1">We obsess over the details that matter: speed, design, conversions, and results. Every project gets our full attention from day one.</p>
+                <div class="feature-list">
+                    <div class="feature-item reveal d1">
+                        <div class="feature-check">✓</div>
+                        <div class="feature-text">
+                            <strong>100% Custom Designs</strong>
+                            <span>No templates. Every site is built from scratch, tailored to your brand and goals.</span>
+                        </div>
+                    </div>
+                    <div class="feature-item reveal d2">
+                        <div class="feature-check">✓</div>
+                        <div class="feature-text">
+                            <strong>Lightning-Fast Delivery</strong>
+                            <span>From kickoff to launch in as little as 2 weeks,without sacrificing quality.</span>
+                        </div>
+                    </div>
+                    <div class="feature-item reveal d3">
+                        <div class="feature-check">✓</div>
+                        <div class="feature-text">
+                            <strong>Mobile-First & SEO-Ready</strong>
+                            <span>Every site performs perfectly on phones and is optimized to rank on Google from launch.</span>
+                        </div>
+                    </div>
+                    <div class="feature-item reveal d4">
+                        <div class="feature-check">✓</div>
+                        <div class="feature-text">
+                            <strong>Transparent Pricing</strong>
+                            <span>No hidden fees, no surprise invoices. You know exactly what you're paying for,always.</span>
+                        </div>
+                    </div>
+                    <div class="feature-item reveal d1">
+                        <div class="feature-check">✓</div>
+                        <div class="feature-text">
+                            <strong>Dedicated Support</strong>
+                            <span>We're here after launch. Fast responses and real help whenever you need it.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal d2">
+                <div class="vis-card">
+                    <div style="margin-bottom:24px;">
+                        <div class="section-label" style="margin-bottom:8px;">Every Build Includes</div>
+                        <p style="font-size:.875rem;color:var(--text-muted);line-height:1.6;">Everything you need to look professional and get found online, built into every single project.</p>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:14px;">
+                        <div class="inc-item"><div class="inc-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong style="font-size:14px;">100% Custom Design</strong><span style="display:block;font-size:12px;color:var(--text-muted);">Built from scratch, never from a template</span></div></div>
+                        <div class="inc-item"><div class="inc-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong style="font-size:14px;">Mobile Responsive</strong><span style="display:block;font-size:12px;color:var(--text-muted);">Looks perfect on every device</span></div></div>
+                        <div class="inc-item"><div class="inc-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong style="font-size:14px;">SEO Optimized</strong><span style="display:block;font-size:12px;color:var(--text-muted);">Built to rank on Google from day one</span></div></div>
+                        <div class="inc-item"><div class="inc-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong style="font-size:14px;">Fast Delivery</strong><span style="display:block;font-size:12px;color:var(--text-muted);">Ready in days, not months</span></div></div>
+                        <div class="inc-item"><div class="inc-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong style="font-size:14px;">Ongoing Support</strong><span style="display:block;font-size:12px;color:var(--text-muted);">We handle every fix and update for you</span></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section" id="process">
+    <div class="container" style="text-align:center;">
+        <div class="section-label" style="justify-content:center;">How It Works</div>
+        <h2 class="section-title reveal">Simple. Fast. <span class="g">Effective.</span></h2>
+        <p class="section-sub reveal d1" style="margin:0 auto 0;">Getting your site live is easier than you think. Here's our proven 4-step process.</p>
+        <div class="process-grid">
+            <div class="p-step reveal d1">
+                <div class="p-num">01</div>
+                <h3>Discovery Call</h3>
+                <p>We learn about your business, goals, and vision in a free 15-minute call. This shapes everything that follows.</p>
+            </div>
+            <div class="p-step reveal d2">
+                <div class="p-num">02</div>
+                <h3>Design & Strategy</h3>
+                <p>We craft a custom design and content strategy aligned with your brand and your ideal customers.</p>
+            </div>
+            <div class="p-step reveal d3">
+                <div class="p-num">03</div>
+                <h3>Build & Refine</h3>
+                <p>We develop your site with precision, sharing progress along the way for your feedback and approval.</p>
+            </div>
+            <div class="p-step reveal d4">
+                <div class="p-num">04</div>
+                <h3>Launch & Grow</h3>
+                <p>We launch your site and provide ongoing support to help you grow your online presence over time.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- GUARANTEE -->
+<section class="section" id="guarantee" style="background:var(--bg);">
+    <div class="container">
+        <div class="guarantee-box reveal">
+            <div class="guarantee-icon">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            </div>
+            <div class="guarantee-content">
+                <div class="section-label" style="margin-bottom:10px;">Our Promise</div>
+                <h2 class="section-title" style="margin-bottom:12px;">Love It or We <span class="g">Redesign It Free</span></h2>
+                <p style="color:var(--text-muted);font-size:1rem;line-height:1.75;max-width:560px;">If you are not completely happy with your website design we will keep working on it until you are. No awkward conversations, no extra charges. Your satisfaction is the only outcome we accept.</p>
+            </div>
+            <div class="guarantee-badges">
+                <div class="g-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> No extra charges</div>
+                <div class="g-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Unlimited revisions</div>
+                <div class="g-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> No questions asked</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq" style="background:var(--bg-2);">
+    <div class="container">
+        <div style="text-align:center;margin-bottom:52px;">
+            <div class="section-label" style="justify-content:center;">Got Questions</div>
+            <h2 class="section-title reveal">Everything You <span class="g">Need to Know</span></h2>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item reveal d1">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span>How long does it take to build my website?</span>
+                    <svg class="faq-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-a">Honestly it depends on the project. Some websites are ready in as little as a single day, others take a couple of weeks. Every build is different. What we can promise is that we move fast and we will always give you a clear honest timeline on your first call so there are no surprises.</div>
+            </div>
+            <div class="faq-item reveal d2">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span>What do I need to provide to get started?</span>
+                    <svg class="faq-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-a">We keep it simple. Just bring your business name, what you do, and any colors or fonts you like. If you have a logo we will use it, if not we can create one. Got photos? Great. No photos? We handle that too. Prefer certain vibes like clean and minimal or bold and colorful? Just let us know. The more you share the better, but even if you have nothing we can build something great from scratch.</div>
+            </div>
+            <div class="faq-item reveal d3">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span>Can I make changes after the site is live?</span>
+                    <svg class="faq-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-a">Absolutely. We offer ongoing support and maintenance so you can request updates, changes, or additions any time. We are always just a message away.</div>
+            </div>
+            <div class="faq-item reveal d1">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span>Will my website work on phones and tablets?</span>
+                    <svg class="faq-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-a">Every single site we build is fully mobile-responsive and tested across all screen sizes. Over 60% of web traffic comes from phones so this is something we take very seriously.</div>
+            </div>
+            <div class="faq-item reveal d2">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span>Do I own the website once it is done?</span>
+                    <svg class="faq-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-a">Yes, every file and every design element is completely yours once delivered. And the best part,you never have to touch any of it yourself. Any time you need something changed, fixed, or updated just reach out and we handle it for you. You own it, we maintain it.</div>
+            </div>
+            <div class="faq-item reveal d3">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span>How much does a website cost?</span>
+                    <svg class="faq-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-a">Every project is different so we do not do one-size-fits-all pricing. Book a free 15-minute call with us and we will give you a clear, honest quote based on exactly what you need. No hidden fees ever.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+    <div class="container">
+        <div class="cta-box reveal">
+            <div class="cta-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Free Strategy Call</div>
+            <h2>Ready to Grow Your Business <span class="g">Online?</span></h2>
+            <p>Book a free 15-minute call with us. No pressure, no obligation,just a real conversation about how we can help your business win online.</p>
+            <div class="cta-btns">
+                <!-- Replace the href below with your Calendly link, e.g. href="https://calendly.com/your-link" -->
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="btn btn-primary" style="font-size:16px;padding:16px 36px;">Book Your Free Call →</a>
+                <a href="#why-us" class="btn btn-outline" style="font-size:16px;padding:16px 36px;">Learn More</a>
+            </div>
+            <p class="cta-note">100% free &nbsp;·&nbsp; No credit card &nbsp;·&nbsp; No obligation</p>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <svg width="32" height="32" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="34" height="34" rx="8" fill="#3EE07A" fill-opacity="0.12"/>
+                        <rect x="4" y="7" width="26" height="20" rx="2.5" stroke="#3EE07A" stroke-width="1.8" fill="none"/>
+                        <line x1="4" y1="12.5" x2="30" y2="12.5" stroke="#3EE07A" stroke-width="1.5"/>
+                        <circle cx="8" cy="10" r="1.2" fill="#3EE07A"/>
+                        <circle cx="11.8" cy="10" r="1.2" fill="#3EE07A" fill-opacity="0.5"/>
+                        <circle cx="15.6" cy="10" r="1.2" fill="#3EE07A" fill-opacity="0.25"/>
+                        <rect x="7" y="15.5" width="8" height="8" rx="1.2" fill="#3EE07A" fill-opacity="0.35"/>
+                        <rect x="17.5" y="15.5" width="8.5" height="2" rx="0.8" fill="#3EE07A" fill-opacity="0.8"/>
+                        <rect x="17.5" y="19" width="6" height="2" rx="0.8" fill="#3EE07A" fill-opacity="0.55"/>
+                        <rect x="17.5" y="22.5" width="7.5" height="1.5" rx="0.8" fill="#3EE07A" fill-opacity="0.3"/>
+                    </svg>
+                    <span class="logo-wordmark">Site<span>Goats</span></span>
+                </a>
+                <p>SiteGoats crafts high-performance websites that help businesses grow their online presence and revenue.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#why">Why a Website</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#why-us">Why Us</a></li>
+                    <li><a href="#process">Our Process</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#services">Web Design</a></li>
+                    <li><a href="#services">Development</a></li>
+                    <li><a href="#services">SEO</a></li>
+                    <li><a href="#services">E-Commerce</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Get in Touch</h4>
+                <ul class="footer-links">
+                    <li><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;">hello@sitegoats.com</a></li>
+                    <li><a href="#cta">Book a Free Call</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 SiteGoats. All rights reserved.</p>
+            <div class="socials">
+                <a href="#" class="soc" aria-label="Instagram">IG</a>
+                <a href="#" class="soc" aria-label="LinkedIn">in</a>
+                <a href="#" class="soc" aria-label="Twitter">𝕏</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // NAV
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // MOBILE MENU
+    document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobMenu').classList.add('open'));
+    document.getElementById('mobClose').addEventListener('click', () => document.getElementById('mobMenu').classList.remove('open'));
+    function closeMob() { document.getElementById('mobMenu').classList.remove('open'); }
+
+    // SCROLL REVEAL
+    const reveals = document.querySelectorAll('.reveal');
+    const ro = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => ro.observe(el));
+
+    // COUNTERS
+    let counted = false;
+    function runCounters() {
+        if (counted) return;
+        counted = true;
+        document.querySelectorAll('.stat-num[data-target]').forEach(el => {
+            const target = +el.dataset.target;
+            const duration = 1800;
+            const steps = 60;
+            const inc = target / steps;
+            let current = 0;
+            let step = 0;
+            const timer = setInterval(() => {
+                step++;
+                current = Math.min(Math.round(inc * step), target);
+                el.textContent = current;
+                if (current >= target) clearInterval(timer);
+            }, duration / steps);
+        });
+    }
+    const statsEl = document.querySelector('.hero-stats');
+    if (statsEl) {
+        new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) runCounters();
+        }, { threshold: 0.4 }).observe(statsEl);
+    }
+
+    // FAQ ACCORDION
+    function toggleFaq(btn) {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+    }
+
+    // SMOOTH SCROLL
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
+            const t = this.getAttribute('href');
+            if (t === '#') return;
+            const el = document.querySelector(t);
+            if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        });
+    });
+</script>
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+</body>
+</html>
