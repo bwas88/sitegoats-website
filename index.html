@@ -167,21 +167,19 @@
 
         /* WHY WEBSITE */
         #why { background:var(--bg-2); }
-        .why-rows { display:flex; flex-direction:column; margin-top:52px; }
-        .why-row {
-            display:grid; grid-template-columns:1fr 1.5fr; gap:28px 40px;
-            align-items:start; padding:32px 0;
+        .why-layout { display:grid; grid-template-columns:1fr 1.3fr; gap:80px; align-items:center; }
+        .why-reason-card {
+            background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg);
+            padding:32px;
+            box-shadow:0 8px 32px rgba(0,0,0,.4), 0 2px 8px rgba(0,0,0,.3), 0 24px 48px rgba(62,224,122,.03);
         }
-        .why-row-num { display:none; }
-        .why-row-title {
-            font-family:'Space Grotesk',sans-serif; font-size:1.05rem; font-weight:700;
-            color:var(--text); line-height:1.35;
-        }
-        .why-row-title em { font-style:normal; color:var(--green); }
-        .why-row-desc { font-size:.875rem; color:var(--text-muted); line-height:1.75; }
-        @media(max-width:640px){
-            .why-row { grid-template-columns:1fr; gap:8px; }
-        }
+        .why-reason-list { display:flex; flex-direction:column; }
+        .why-reason { display:flex; gap:16px; padding:16px 0; border-bottom:1px solid var(--border); }
+        .why-reason:last-child { border-bottom:none; padding-bottom:0; }
+        .why-reason:first-child { padding-top:0; }
+        .why-reason-dot { width:6px; height:6px; border-radius:50%; background:var(--green); flex-shrink:0; margin-top:6px; }
+        .why-reason strong { display:block; font-size:14px; font-weight:600; color:var(--text); margin-bottom:3px; }
+        .why-reason span { font-size:13px; color:var(--text-muted); line-height:1.65; }
 
         /* SERVICES */
         #services { background:var(--bg); }
@@ -373,7 +371,7 @@
         @media(max-width:1024px){
             .services-head { grid-template-columns:1fr; }
             .services-grid { grid-template-columns:repeat(2,1fr); }
-            .why-us-layout { grid-template-columns:1fr; gap:48px; }
+            .why-us-layout, .why-layout { grid-template-columns:1fr; gap:48px; }
             .process-grid { grid-template-columns:repeat(2,1fr); }
             .process-grid::before { display:none; }
             .footer-grid { grid-template-columns:1fr 1fr; }
@@ -519,39 +517,41 @@
 <!-- WHY A WEBSITE -->
 <section class="section" id="why">
     <div class="container">
-        <div class="section-label">Why It Matters</div>
-        <h2 class="section-title reveal">Your Business Needs a<br><span class="g">Professional Website</span></h2>
-        <p class="section-sub reveal d1">In 2026, your website is your #1 salesperson,working 24/7 to bring you customers. Here's why it's non-negotiable.</p>
-        <div class="why-rows">
-            <div class="why-row reveal d1">
-                <div class="why-row-num">01</div>
-                <div class="why-row-title"><em>97%</em> of Customers Search Online First</div>
-                <div class="why-row-desc">Before calling or visiting, people Google you. Without a website, you're invisible — and they'll find your competition instead.</div>
+        <div class="why-layout">
+            <div>
+                <div class="section-label">Why It Matters</div>
+                <h2 class="section-title reveal">Your Business Needs a<br><span class="g">Professional Website</span></h2>
+                <p class="section-sub reveal d1">In 2026, your website is your #1 salesperson — working 24/7 to bring you customers. Here's why it's non-negotiable.</p>
             </div>
-            <div class="why-row reveal d2">
-                <div class="why-row-num">02</div>
-                <div class="why-row-title">Build Trust & Credibility <em>Instantly</em></div>
-                <div class="why-row-desc">75% of consumers judge a business's credibility by its website. A polished site turns skeptics into buyers before you say a word.</div>
-            </div>
-            <div class="why-row reveal d3">
-                <div class="why-row-num">03</div>
-                <div class="why-row-title">Your Business Works <em>24/7</em></div>
-                <div class="why-row-desc">Your website never sleeps. Customers can learn about you, book appointments, and make purchases at 2am — without you lifting a finger.</div>
-            </div>
-            <div class="why-row reveal d4">
-                <div class="why-row-num">04</div>
-                <div class="why-row-title">Stay Ahead of <em>Competitors</em></div>
-                <div class="why-row-desc">If your competitor has a great site and you don't, you've already lost the sale. A better website is the fastest way to win market share.</div>
-            </div>
-            <div class="why-row reveal d1">
-                <div class="why-row-num">05</div>
-                <div class="why-row-title">Best ROI of Any <em>Marketing Channel</em></div>
-                <div class="why-row-desc">A quality website reaches thousands of potential customers continuously — for a fraction of what you'd spend on ads or traditional marketing.</div>
-            </div>
-            <div class="why-row reveal d2">
-                <div class="why-row-num">06</div>
-                <div class="why-row-title">Attract Your <em>Ideal Customers</em></div>
-                <div class="why-row-desc">With SEO built in from day one, your site pulls in people actively searching for exactly what you offer — ready to buy, not just browse.</div>
+            <div class="reveal d2">
+                <div class="why-reason-card">
+                    <div class="why-reason-list">
+                        <div class="why-reason">
+                            <div class="why-reason-dot"></div>
+                            <div><strong>97% of Customers Search Online First</strong><span>Before calling or visiting, people Google you. Without a website, you're invisible — and they'll find your competition instead.</span></div>
+                        </div>
+                        <div class="why-reason">
+                            <div class="why-reason-dot"></div>
+                            <div><strong>Build Trust & Credibility Instantly</strong><span>75% of consumers judge a business's credibility by its website. A polished site turns skeptics into buyers before you say a word.</span></div>
+                        </div>
+                        <div class="why-reason">
+                            <div class="why-reason-dot"></div>
+                            <div><strong>Your Business Works 24/7</strong><span>Your website never sleeps. Customers can learn about you, book appointments, and purchase at 2am — without you lifting a finger.</span></div>
+                        </div>
+                        <div class="why-reason">
+                            <div class="why-reason-dot"></div>
+                            <div><strong>Stay Ahead of Competitors</strong><span>If your competitor has a great site and you don't, you've already lost the sale. A better website is the fastest way to win market share.</span></div>
+                        </div>
+                        <div class="why-reason">
+                            <div class="why-reason-dot"></div>
+                            <div><strong>Best ROI of Any Marketing Channel</strong><span>A quality website reaches thousands of potential customers continuously — for a fraction of what you'd spend on ads or traditional marketing.</span></div>
+                        </div>
+                        <div class="why-reason">
+                            <div class="why-reason-dot"></div>
+                            <div><strong>Attract Your Ideal Customers</strong><span>With SEO built in from day one, your site pulls in people actively searching for exactly what you offer — ready to buy, not just browse.</span></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
