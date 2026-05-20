@@ -184,17 +184,11 @@
         /* SERVICES */
         #services { background:var(--bg); }
         .services-head { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:end; margin-bottom:52px; }
-        .services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-        .svc-card {
-            background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg);
-            padding:28px; transition:all .4s ease;
-            box-shadow:0 2px 12px rgba(0,0,0,.35), 0 1px 3px rgba(0,0,0,.2);
-        }
-        .svc-card:hover { border-color:var(--green-border); background:var(--bg-3); transform:translateY(-4px); box-shadow:0 20px 50px rgba(0,0,0,.5), 0 6px 20px rgba(0,0,0,.3), 0 12px 32px rgba(62,224,122,.05); }
-        .svc-num { font-size:11px; color:var(--green); font-weight:700; letter-spacing:.12em; margin-bottom:20px; }
-        .svc-icon { display:flex; align-items:center; margin-bottom:14px; }
-        .svc-card h3 { font-family:'Space Grotesk',sans-serif; font-size:1.05rem; font-weight:600; margin-bottom:10px; }
-        .svc-card p { font-size:.865rem; color:var(--text-muted); line-height:1.68; }
+        .svc-list { display:grid; grid-template-columns:1fr 1fr; }
+        .svc-item { padding:32px 40px 32px 0; border-top:1px solid var(--border); }
+        .svc-item:nth-child(even) { padding-left:40px; padding-right:0; border-left:1px solid var(--border); }
+        .svc-item h3 { font-family:'Space Grotesk',sans-serif; font-size:1.05rem; font-weight:700; margin-bottom:10px; color:var(--text); }
+        .svc-item p { font-size:.875rem; color:var(--text-muted); line-height:1.72; }
 
         /* WHY US */
         #why-us { background:var(--bg-2); }
@@ -370,7 +364,7 @@
         /* TABLET / IPAD (1024px) */
         @media(max-width:1024px){
             .services-head { grid-template-columns:1fr; }
-            .services-grid { grid-template-columns:repeat(2,1fr); }
+            .svc-list { grid-template-columns:1fr; }
             .why-us-layout, .why-layout { grid-template-columns:1fr; gap:48px; }
             .process-grid { grid-template-columns:repeat(2,1fr); }
             .process-grid::before { display:none; }
@@ -386,7 +380,7 @@
             .nav-links { display:none; }
             .nav-right .btn-outline { display:none; }
             .hamburger { display:flex; }
-            .services-grid, .test-grid { grid-template-columns:1fr; }
+            .test-grid { grid-template-columns:1fr; }
             .cta-box { padding:40px 20px; }
             .footer-grid { grid-template-columns:1fr; }
             .hero-stats { gap:20px; flex-wrap:wrap; }
@@ -410,7 +404,7 @@
             .hero-stat { flex:1; min-width:calc(50% - 8px); }
             .logo-wordmark { font-size:16px; }
             .footer-bottom { flex-direction:column; align-items:flex-start; }
-            .svc-card { padding:24px; }
+            .svc-item { padding:24px 0; }
             .guarantee-box { padding:24px 20px; }
         }
     </style>
@@ -569,40 +563,28 @@
                 <p class="section-sub reveal d1">From concept to launch and beyond,we handle it all so you can stay focused on running your business.</p>
             </div>
         </div>
-        <div class="services-grid">
-            <div class="svc-card reveal d1">
-                <div class="svc-num">01</div>
-                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div>
+        <div class="svc-list">
+            <div class="svc-item reveal d1">
                 <h3>Custom Web Design</h3>
-                <p>Stunning, unique designs built for your brand,not off a template shelf. Every pixel crafted to make you stand out.</p>
+                <p>Stunning, unique designs built for your brand, not off a template shelf. Every pixel crafted to make you stand out.</p>
             </div>
-            <div class="svc-card reveal d2">
-                <div class="svc-num">02</div>
-                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+            <div class="svc-item reveal d2">
                 <h3>Web Development</h3>
                 <p>Clean, fast, reliable code. We build sites that load in under 2 seconds and work flawlessly on every device.</p>
             </div>
-            <div class="svc-card reveal d3">
-                <div class="svc-num">03</div>
-                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><polyline points="8 13 10 11 12 13 14 9"/></svg></div>
+            <div class="svc-item reveal d3">
                 <h3>SEO Optimization</h3>
                 <p>Built to rank from day one. Every site we make is optimized to help you get found on Google and drive organic traffic.</p>
             </div>
-            <div class="svc-card reveal d1">
-                <div class="svc-num">04</div>
-                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+            <div class="svc-item reveal d1">
                 <h3>E-Commerce Stores</h3>
-                <p>Sell online with a smooth, conversion-focused store. Payment integrations, product pages, and checkout,done right.</p>
+                <p>Sell online with a smooth, conversion-focused store. Payment integrations, product pages, and checkout done right.</p>
             </div>
-            <div class="svc-card reveal d2">
-                <div class="svc-num">05</div>
-                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <div class="svc-item reveal d2">
                 <h3>Landing Pages</h3>
-                <p>High-converting pages with one goal,book calls, capture leads, or drive sales. Designed to perform, not just look good.</p>
+                <p>High-converting pages with one goal: book calls, capture leads, or drive sales. Designed to perform, not just look good.</p>
             </div>
-            <div class="svc-card reveal d3">
-                <div class="svc-num">06</div>
-                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3EE07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+            <div class="svc-item reveal d3">
                 <h3>Ongoing Maintenance</h3>
                 <p>We don't build and disappear. Continuous updates, monitoring, and support to keep your site fast, secure, and current.</p>
             </div>
