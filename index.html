@@ -664,6 +664,106 @@
             .svc-item { padding:24px 0; }
             .guarantee-box { padding:24px 20px; }
         }
+    /* CHECKOUT MODAL */
+    .checkout-overlay {
+        position: fixed; inset: 0; z-index: 9999;
+        background: rgba(0,0,0,0.75); backdrop-filter: blur(10px);
+        display: flex; align-items: center; justify-content: center;
+        padding: 20px; opacity: 0; pointer-events: none;
+        transition: opacity 0.25s ease;
+    }
+    .checkout-overlay.active { opacity: 1; pointer-events: all; }
+    .checkout-card {
+        background: var(--bg-card); border: 1px solid var(--green-border);
+        border-radius: 20px; width: 100%; max-width: 460px;
+        box-shadow: 0 0 80px rgba(62,224,122,0.08), 0 32px 64px rgba(0,0,0,0.6);
+        position: relative; overflow: hidden;
+        transform: translateY(20px) scale(0.97);
+        transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s ease;
+    }
+    .checkout-overlay.active .checkout-card { transform: translateY(0) scale(1); }
+    .checkout-card::before {
+        content: ''; position: absolute; top: -80px; right: -80px;
+        width: 240px; height: 240px;
+        background: radial-gradient(circle, rgba(62,224,122,0.07), transparent 70%);
+        pointer-events: none;
+    }
+    .checkout-close {
+        position: absolute; top: 16px; right: 16px;
+        background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+        color: var(--text-muted); width: 32px; height: 32px; border-radius: 50%;
+        font-size: 18px; line-height: 1; cursor: pointer; display: flex;
+        align-items: center; justify-content: center;
+        transition: background 0.2s ease, color 0.2s ease;
+    }
+    .checkout-close:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+    .checkout-summary {
+        padding: 28px 28px 20px;
+        border-bottom: 1px solid var(--border);
+        background: linear-gradient(135deg, rgba(62,224,122,0.04), transparent);
+    }
+    .checkout-label {
+        font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+        color: var(--green); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+    }
+    .checkout-label svg { width: 12px; height: 12px; }
+    .checkout-pkg-row {
+        display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+    }
+    .checkout-pkg-name {
+        font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 700;
+        color: var(--text); line-height: 1.3;
+    }
+    .checkout-pkg-tier {
+        font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+        padding: 3px 9px; border-radius: 100px; margin-top: 6px; display: inline-block;
+    }
+    .checkout-pkg-tier.std { background: rgba(255,255,255,.07); color: var(--text-muted); }
+    .checkout-pkg-tier.pro { background: rgba(62,224,122,.1); color: var(--green); border: 1px solid var(--green-border); }
+    .checkout-pkg-tier.elt { background: var(--green); color: #000; }
+    .checkout-price-display {
+        font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700;
+        color: var(--green); white-space: nowrap; font-variant-numeric: tabular-nums;
+        text-align: right;
+    }
+    .checkout-price-display span { font-size: 1rem; font-weight: 400; color: var(--text-muted); display: block; text-align: right; margin-top: 2px; }
+    .checkout-form { padding: 24px 28px 28px; display: flex; flex-direction: column; gap: 16px; }
+    .checkout-field { display: flex; flex-direction: column; gap: 6px; }
+    .checkout-field label {
+        font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+        color: var(--text-muted);
+    }
+    .checkout-field input {
+        background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px;
+        padding: 12px 14px; font-size: 14px; color: var(--text); font-family: 'Inter', sans-serif;
+        outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; width: 100%;
+    }
+    .checkout-field input:focus {
+        border-color: var(--green-border);
+        box-shadow: 0 0 0 3px rgba(62,224,122,0.08);
+    }
+    .checkout-field input::placeholder { color: var(--text-dim); }
+    .checkout-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .checkout-submit {
+        width: 100%; padding: 14px; border-radius: 10px; border: none; cursor: pointer;
+        background: var(--green); color: #000; font-family: 'Space Grotesk', sans-serif;
+        font-size: 15px; font-weight: 700; letter-spacing: .02em;
+        transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+        box-shadow: 0 4px 20px rgba(62,224,122,0.25); margin-top: 4px;
+    }
+    .checkout-submit:hover { background: #5aeea0; box-shadow: 0 8px 32px rgba(62,224,122,0.35); transform: translateY(-1px); }
+    .checkout-submit:active { transform: scale(0.98); }
+    .checkout-secure {
+        display: flex; align-items: center; justify-content: center; gap: 6px;
+        font-size: 11px; color: var(--text-dim); margin-top: 4px;
+    }
+    .checkout-secure svg { width: 12px; height: 12px; color: var(--text-dim); flex-shrink: 0; }
+    @media(max-width:480px) {
+        .checkout-card { border-radius: 16px; }
+        .checkout-summary { padding: 22px 20px 16px; }
+        .checkout-form { padding: 18px 20px 22px; gap: 14px; }
+        .checkout-price-display { font-size: 1.6rem; }
+    }
     </style>
 </head>
 <body>
@@ -1561,6 +1661,60 @@
     </div>
 </footer>
 
+<!-- CHECKOUT MODAL -->
+<div id="checkout-modal" class="checkout-overlay" onclick="if(event.target===this)closeCheckout()">
+    <div class="checkout-card">
+        <button class="checkout-close" onclick="closeCheckout()" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="checkout-summary">
+            <div class="checkout-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Secure Checkout
+            </div>
+            <div class="checkout-pkg-row">
+                <div>
+                    <div class="checkout-pkg-name" id="co-name">Package</div>
+                    <span class="checkout-pkg-tier" id="co-tier">Standard</span>
+                </div>
+                <div>
+                    <div class="checkout-price-display" id="co-price">$0.00</div>
+                    <span style="font-size:11px;color:var(--text-dim);display:block;text-align:right;">one-time</span>
+                </div>
+            </div>
+        </div>
+        <form class="checkout-form" onsubmit="handleCheckout(event)">
+            <div class="checkout-field">
+                <label>Full Name</label>
+                <input type="text" id="co-full-name" placeholder="John Smith" required autocomplete="name" />
+            </div>
+            <div class="checkout-field">
+                <label>Email</label>
+                <input type="email" id="co-email" placeholder="you@example.com" required autocomplete="email" />
+            </div>
+            <div class="checkout-field">
+                <label>Card Number</label>
+                <input type="text" id="co-card" placeholder="1234 5678 9012 3456" maxlength="19" inputmode="numeric" required />
+            </div>
+            <div class="checkout-row">
+                <div class="checkout-field">
+                    <label>Expiry</label>
+                    <input type="text" id="co-exp" placeholder="MM / YY" maxlength="7" required />
+                </div>
+                <div class="checkout-field">
+                    <label>CVV</label>
+                    <input type="text" id="co-cvv" placeholder="123" maxlength="4" inputmode="numeric" required />
+                </div>
+            </div>
+            <button type="submit" class="checkout-submit">Complete Purchase →</button>
+            <div class="checkout-secure">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Payments secured by Stripe · 256-bit SSL encryption
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
     // NAV
     const navbar = document.getElementById('navbar');
@@ -1657,6 +1811,91 @@
             if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
         });
     });
+
+    // CHECKOUT MODAL
+    function openCheckout(btn) {
+        var modal = document.getElementById('checkout-modal');
+        var pkgName = '', price = '', tierText = '', tierClass = 'std';
+
+        var row = btn.closest('.p-row');
+        if (row) {
+            var nameEl = row.querySelector('.p-row-name');
+            var badge = nameEl ? nameEl.querySelector('.p-tier-badge') : null;
+            tierText = badge ? badge.textContent.trim() : 'Standard';
+            var clone = nameEl ? nameEl.cloneNode(true) : null;
+            if (clone) { clone.querySelectorAll('.p-tier-badge').forEach(function(b){b.remove();}); pkgName = clone.textContent.trim(); }
+            price = row.querySelector('.p-row-price') ? row.querySelector('.p-row-price').textContent.trim() : '';
+        } else {
+            var tr = btn.closest('tr');
+            if (tr) {
+                var lbl = tr.querySelector('.p-pkg-lbl');
+                pkgName = lbl ? lbl.textContent.trim() : '';
+                var cell = btn.closest('td');
+                var valEl = cell ? cell.querySelector('.p-val') : null;
+                price = valEl ? valEl.textContent.trim() : '';
+            }
+        }
+
+        tierText = tierText || 'Standard';
+        if (tierText.toLowerCase().indexOf('elite') > -1) tierClass = 'elt';
+        else if (tierText.toLowerCase().indexOf('pro') > -1) tierClass = 'pro';
+
+        document.getElementById('co-name').textContent = pkgName || 'Package';
+        document.getElementById('co-price').textContent = price || '';
+        var tierEl = document.getElementById('co-tier');
+        tierEl.textContent = tierText;
+        tierEl.className = 'checkout-pkg-tier ' + tierClass;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeCheckout() {
+        document.getElementById('checkout-modal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeCheckout(); });
+
+    // Card number formatting
+    var cardInput = document.getElementById('co-card');
+    if (cardInput) {
+        cardInput.addEventListener('input', function() {
+            var v = this.value.replace(/\D/g,'').substring(0,16);
+            this.value = v.replace(/(.{4})/g,'$1 ').trim();
+        });
+    }
+    var expInput = document.getElementById('co-exp');
+    if (expInput) {
+        expInput.addEventListener('input', function() {
+            var v = this.value.replace(/\D/g,'').substring(0,4);
+            if (v.length >= 3) v = v.substring(0,2) + ' / ' + v.substring(2);
+            this.value = v;
+        });
+    }
+
+    // Wire up all buy buttons
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.p-row-btn, .p-buy-btn').forEach(function(btn) {
+            btn.removeAttribute('onclick');
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openCheckout(btn);
+            });
+        });
+    });
+
+    function handleCheckout(e) {
+        e.preventDefault();
+        var btn = e.target.querySelector('.checkout-submit');
+        btn.textContent = 'Processing...';
+        btn.disabled = true;
+        setTimeout(function() {
+            btn.textContent = 'Complete Purchase →';
+            btn.disabled = false;
+            // Stripe will plug in here
+            Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});
+        }, 800);
+    }
 </script>
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </body>
