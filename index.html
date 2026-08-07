@@ -488,6 +488,14 @@
             color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: .1em;
             text-transform: uppercase; padding: 2px 9px; border-radius: 100px;
         }
+        .p-tier-badge {
+            display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: .1em;
+            text-transform: uppercase; padding: 2px 7px; border-radius: 100px;
+            margin-left: 8px; vertical-align: middle; line-height: 1.4;
+        }
+        .p-tier-std { background: rgba(255,255,255,.07); color: var(--text-muted); }
+        .p-tier-pro { background: rgba(62,224,122,.1); color: var(--green); border: 1px solid var(--green-border); }
+        .p-tier-elt { background: var(--green); color: #000; }
         .p-row-name {
             font-family: 'Space Grotesk', sans-serif; font-weight: 700;
             font-size: 14px; color: var(--text); min-width: 130px;
@@ -866,75 +874,141 @@
 
         <!-- WEBSITE BUILDS (new sites from scratch) -->
         <div id="p-builds" class="p-list-panel">
-            <div class="p-tbl-wrap">
-                <table class="p-tbl">
-                    <thead>
-                        <tr>
-                            <th>What You Need</th>
-                            <th>Standard</th>
-                            <th class="p-rec">Pro ★</th>
-                            <th>Elite</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><span class="p-pkg-lbl">Landing Page</span><span class="p-pkg-sub">1 page — scroll-based, built to convert visitors into leads</span></td>
-                            <td><div class="p-cell"><span class="p-val">$3.39</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                            <td class="p-rec"><div class="p-cell"><span class="p-val p-rec">$5.49</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                            <td><span class="p-na">—</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="p-pkg-lbl">Mini Site</span><span class="p-pkg-sub">2–3 pages — home, about, contact. Simple, clean, done fast</span></td>
-                            <td><div class="p-cell"><span class="p-val">$5.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                            <td class="p-rec"><span class="p-na">—</span></td>
-                            <td><span class="p-na">—</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="p-pkg-lbl">Starter Site</span><span class="p-pkg-sub">5 pages — enough to look legit, rank on Google, and get leads</span></td>
-                            <td><div class="p-cell"><span class="p-val">$8.49</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                            <td class="p-rec"><div class="p-cell"><span class="p-val p-rec">$14.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                            <td><div class="p-cell"><span class="p-val">$19.49</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                        </tr>
-                        <tr>
-                            <td><span class="p-pkg-lbl">Business Site</span><span class="p-pkg-sub">8 pages — full online presence with services, team, and contact</span></td>
-                            <td><div class="p-cell"><span class="p-val">$15.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                            <td class="p-rec"><div class="p-cell"><span class="p-val p-rec">$24.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                            <td><div class="p-cell"><span class="p-val">$37.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                        </tr>
-                        <tr>
-                            <td><span class="p-pkg-lbl">Agency Site</span><span class="p-pkg-sub">12 pages — portfolio, blog, case studies, team. Built to impress</span></td>
-                            <td><div class="p-cell"><span class="p-val">$27.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                            <td class="p-rec"><div class="p-cell"><span class="p-val p-rec">$46.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                            <td><div class="p-cell"><span class="p-val">$69.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                        </tr>
-                        <tr>
-                            <td><span class="p-pkg-lbl">Large Site</span><span class="p-pkg-sub">20 pages — multi-service businesses, franchises, or growing brands</span></td>
-                            <td><div class="p-cell"><span class="p-val">$59.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                            <td class="p-rec"><div class="p-cell"><span class="p-val p-rec">$109.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                            <td><div class="p-cell"><span class="p-val">$169.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                        </tr>
-                        <tr>
-                            <td><span class="p-pkg-lbl">Bespoke Build</span><span class="p-pkg-sub">Scope set by you — fully custom design, no page-count limit</span></td>
-                            <td><span class="p-na">—</span></td>
-                            <td class="p-rec"><span class="p-na">—</span></td>
-                            <td><div class="p-cell"><span class="p-val">$239.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                        </tr>
-                        <tr>
-                            <td><span class="p-pkg-lbl">Expert Site</span><span class="p-pkg-sub">30 pages — content-heavy, feature-rich, built for authority</span></td>
-                            <td><div class="p-cell"><span class="p-val">$104.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                            <td class="p-rec"><div class="p-cell"><span class="p-val p-rec">$189.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                            <td><div class="p-cell"><span class="p-val">$299.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                        </tr>
-                        <tr>
-                            <td><span class="p-pkg-lbl">Enterprise</span><span class="p-pkg-sub">Full platform build — complex, multi-section, built to scale</span></td>
-                            <td><div class="p-cell"><span class="p-val">$194.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                            <td class="p-rec"><div class="p-cell"><span class="p-val p-rec">$329.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                            <td><div class="p-cell"><span class="p-val">$549.99</span><a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-buy-btn">Buy</a></div></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="p-row">
+                <span class="p-row-name">One-Pager <span class="p-tier-badge p-tier-std">Standard</span></span>
+                <span class="p-row-desc">1 page — scroll-based, built to convert visitors into leads</span>
+                <span class="p-row-price">$3.39</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
             </div>
-            <p style="text-align:center;font-size:12px;color:var(--text-dim);margin-top:16px;">Standard = clean &amp; functional · Pro ★ = premium design, animations &amp; priority turnaround · Elite = white-glove, fully custom, fastest delivery · — = not available at this tier</p>
+            <div class="p-row">
+                <span class="p-row-name">One-Pager Pro <span class="p-tier-badge p-tier-pro">Pro</span></span>
+                <span class="p-row-desc">1 page — premium design, animations &amp; priority delivery</span>
+                <span class="p-row-price">$5.49</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Micro Site <span class="p-tier-badge p-tier-std">Standard</span></span>
+                <span class="p-row-desc">3 pages — home, about, contact. Simple and clean</span>
+                <span class="p-row-price">$5.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Starter Site <span class="p-tier-badge p-tier-std">Standard</span></span>
+                <span class="p-row-desc">5 pages — enough to look legit and generate leads</span>
+                <span class="p-row-price">$8.49</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Starter Site Pro <span class="p-tier-badge p-tier-pro">Pro</span></span>
+                <span class="p-row-desc">5 pages — polished design, animations, faster turnaround</span>
+                <span class="p-row-price">$14.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row p-hot">
+                <span class="p-hot-tag">Most Popular</span>
+                <span class="p-row-name">Business Site <span class="p-tier-badge p-tier-std">Standard</span></span>
+                <span class="p-row-desc">8 pages — full business presence with services &amp; contact</span>
+                <span class="p-row-price">$15.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Starter Site Elite <span class="p-tier-badge p-tier-elt">Elite</span></span>
+                <span class="p-row-desc">5 pages — fully custom design, white-glove build</span>
+                <span class="p-row-price">$19.49</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row p-hot">
+                <span class="p-hot-tag">Best Value</span>
+                <span class="p-row-name">Business Site Pro <span class="p-tier-badge p-tier-pro">Pro</span></span>
+                <span class="p-row-desc">8 pages — polished design, animations &amp; priority delivery</span>
+                <span class="p-row-price">$24.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Pro Site <span class="p-tier-badge p-tier-std">Standard</span></span>
+                <span class="p-row-desc">12 pages — portfolio, blog, team &amp; everything in between</span>
+                <span class="p-row-price">$27.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Business Site Elite <span class="p-tier-badge p-tier-elt">Elite</span></span>
+                <span class="p-row-desc">8 pages — fully custom design, white-glove build</span>
+                <span class="p-row-price">$37.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Pro Site Pro <span class="p-tier-badge p-tier-pro">Pro</span></span>
+                <span class="p-row-desc">12 pages — polished design, animations &amp; priority delivery</span>
+                <span class="p-row-price">$46.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Large Site <span class="p-tier-badge p-tier-std">Standard</span></span>
+                <span class="p-row-desc">20 pages — multi-service businesses, franchises, or agencies</span>
+                <span class="p-row-price">$59.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Pro Site Elite <span class="p-tier-badge p-tier-elt">Elite</span></span>
+                <span class="p-row-desc">12 pages — fully custom design, white-glove build</span>
+                <span class="p-row-price">$69.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Expert Site <span class="p-tier-badge p-tier-std">Standard</span></span>
+                <span class="p-row-desc">30 pages — content-heavy, feature-rich, built for authority</span>
+                <span class="p-row-price">$104.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Large Site Pro <span class="p-tier-badge p-tier-pro">Pro</span></span>
+                <span class="p-row-desc">20 pages — polished design, animations &amp; priority delivery</span>
+                <span class="p-row-price">$109.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Large Site Elite <span class="p-tier-badge p-tier-elt">Elite</span></span>
+                <span class="p-row-desc">20 pages — fully custom design, white-glove build</span>
+                <span class="p-row-price">$169.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Expert Site Pro <span class="p-tier-badge p-tier-pro">Pro</span></span>
+                <span class="p-row-desc">30 pages — polished design, animations &amp; priority delivery</span>
+                <span class="p-row-price">$189.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Enterprise <span class="p-tier-badge p-tier-std">Standard</span></span>
+                <span class="p-row-desc">Full platform — complex, multi-section, built to scale</span>
+                <span class="p-row-price">$194.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Elite Build <span class="p-tier-badge p-tier-elt">Elite</span></span>
+                <span class="p-row-desc">Custom scope — bespoke design, you set the brief</span>
+                <span class="p-row-price">$239.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Expert Site Elite <span class="p-tier-badge p-tier-elt">Elite</span></span>
+                <span class="p-row-desc">30 pages — fully custom design, white-glove build</span>
+                <span class="p-row-price">$299.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Enterprise Pro <span class="p-tier-badge p-tier-pro">Pro</span></span>
+                <span class="p-row-desc">Full platform — polished design, animations &amp; priority delivery</span>
+                <span class="p-row-price">$329.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <div class="p-row">
+                <span class="p-row-name">Enterprise Elite <span class="p-tier-badge p-tier-elt">Elite</span></span>
+                <span class="p-row-desc">Full platform — fully custom design, white-glove build</span>
+                <span class="p-row-price">$549.99</span>
+                <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/picklechin14/30min'});return false;" class="p-row-btn">Buy Now</a>
+            </div>
+            <p style="text-align:center;font-size:12px;color:var(--text-dim);margin-top:8px;">Standard = clean &amp; functional · Pro = premium design + animations + priority turnaround · Elite = white-glove, fully custom build</p>
         </div>
 
         <!-- REDESIGNS (refresh an existing site) -->
