@@ -500,17 +500,9 @@
         .p-buy-btn:hover { background: var(--green); color: #000; }
         .p-buy-btn:active { transform: scale(0.97); }
         .p-cell { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
-        .p-tbl td { padding: 11px 16px; }
-        .p-tbl th { padding: 10px 16px; }
-        @media(max-width:640px) {
-            .p-row { flex-wrap: wrap; gap: 10px; }
-            .p-row-name { min-width: unset; width: 100%; }
-            .p-row-desc { width: 100%; }
-            .p-row-price { font-size: 1.3rem; }
-        }
         /* Pricing table (multi-tier) */
-        .p-tbl-wrap { overflow-x: auto; max-width: 900px; margin: 0 auto; border-radius: var(--radius); border: 1px solid var(--border); }
-        .p-tbl { width: 100%; border-collapse: collapse; min-width: 620px; }
+        .p-tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 900px; margin: 0 auto; border-radius: var(--radius); border: 1px solid var(--border); }
+        .p-tbl { width: 100%; border-collapse: collapse; min-width: 580px; }
         .p-tbl thead { background: var(--bg-3); }
         .p-tbl th { padding: 11px 14px; text-align: right; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; border-bottom: 1px solid var(--border); }
         .p-tbl th:first-child { text-align: left; }
@@ -519,17 +511,31 @@
         .p-tbl tbody tr:last-child { border-bottom: none; }
         .p-tbl tbody tr:hover { background: rgba(255,255,255,.02); }
         .p-tbl td { padding: 11px 14px; text-align: right; white-space: nowrap; }
-        .p-tbl td:first-child { text-align: left; white-space: normal; max-width: 280px; }
+        .p-tbl td:first-child { text-align: left; white-space: normal; max-width: 260px; }
         .p-pkg-lbl { font-size: 13px; font-weight: 600; color: var(--text); }
-        .p-pkg-sub { display: block; font-size: 11px; color: var(--text-muted); margin-top: 1px; font-weight: 400; }
+        .p-pkg-sub { display: block; font-size: 11px; color: var(--text-muted); margin-top: 2px; font-weight: 400; white-space: normal; }
         .p-val { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
         .p-val.p-rec { color: var(--green); }
         .p-tbl td.p-rec, .p-tbl th.p-rec { background: rgba(62,224,122,.04); }
         .p-na { color: var(--text-dim); font-size: 13px; font-weight: 400; }
-        /* 8-tab scrollable row */
-        .pricing-tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; justify-content: flex-start; padding: 0 0 8px; scrollbar-width: none; }
+        /* Tab scrollable row */
+        .pricing-tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; justify-content: flex-start; padding: 0 0 10px; scrollbar-width: none; margin-bottom: 32px; }
         .pricing-tabs::-webkit-scrollbar { display: none; }
-        @media(max-width:720px) { .pricing-tabs { justify-content: flex-start; } }
+        /* Mobile fixes */
+        @media(max-width:640px) {
+            #pricing .container { padding: 0 16px; }
+            .p-row {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                grid-template-areas: "name price" "desc btn";
+                gap: 4px 12px; padding: 14px 16px;
+            }
+            .p-row-name { grid-area: name; min-width: unset; font-size: 13px; }
+            .p-row-desc { grid-area: desc; font-size: 12px; }
+            .p-row-price { grid-area: price; font-size: 1.2rem; text-align: right; }
+            .p-row-btn { grid-area: btn; padding: 6px 12px; font-size: 12px; }
+            .p-list-panel { gap: 8px; }
+        }
 
         /* CTA */
         #cta { background:var(--bg); padding:100px 0; }
